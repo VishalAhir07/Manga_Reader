@@ -1,0 +1,23 @@
+{
+  "name": "mangareader",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "react-scripts test",
+    "start": "set PORT=4536 && react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.8.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-script": "^2.0.5"
+  }
+}

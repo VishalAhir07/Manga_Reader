@@ -1,0 +1,66 @@
+<%- include('layout/header') %>
+
+<main class="reader">
+    <div class="reader-controls">
+        <a href="/manga/<%= chapter.mangaId %>" class="back-button">← Back to Manga</a>
+        <h2 class="chapter-title">
+            Chapter <%= chapter.number %> 
+            <% if (chapter.title) { %>
+                - <%= chapter.title %>
+            <% } %>
+        </h2>
+        <div class="chapter-navigation">
+            <% if (chapter.prevChapter) { %>
+                <a href="/chapter/<%= chapter.mangaId %>/<%= chapter.prevChapter %>" class="nav-button">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+            <% } %>
+            <% if (chapter.nextChapter) { %>
+                <a href="/chapter/<%= chapter.mangaId %>/<%= chapter.nextChapter %>" class="nav-button">
+                    Next <i class="fas fa-chevron-right"></i>
+                </a>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="keyboard-hint">
+        Use ← and → arrow keys to navigate between chapters
+    </div>
+
+    <div class="pages-container">
+        <% if (pages && pages.length > 0) { %>
+            <% pages.forEach((page, index) => { %>
+                <div class="manga-page">
+                    <img 
+                        src="<%= page %>" 
+                        alt="Page <%= index + 1 %>" 
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src='/images/error-loading.png';"
+                    >
+                    <div class="page-number"><%= index + 1 %> / <%= pages.length %></div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="error-message">
+                No pages found for this chapter.
+            </div>
+        <% } %>
+    </div>
+
+    <div class="reader-controls bottom">
+        <div class="chapter-navigation">
+            <% if (chapter.prevChapter) { %>
+                <a href="/chapter/<%= chapter.mangaId %>/<%= chapter.prevChapter %>" class="nav-button">
+                    <i class="fas fa-chevron-left"></i> Previous Chapter
+                </a>
+            <% } %>
+            <% if (chapter.nextChapter) { %>
+                <a href="/chapter/<%= chapter.mangaId %>/<%= chapter.nextChapter %>" class="nav-button">
+                    Next Chapter <i class="fas fa-chevron-right"></i>
+                </a>
+            <% } %>
+        </div>
+    </div>
+</main>
+
+<%- include('layout/footer') %> 

@@ -1,0 +1,88 @@
+<%- include('layout/header') %>
+
+<main>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Welcome to MangaReader</h1>
+            <p>Discover and read your favorite manga online</p>
+            <div class="hero-search">
+                <input type="text" id="heroSearchInput" placeholder="Search for manga..." value="<%= locals.searchQuery || '' %>">
+                <button id="heroSearchButton">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="filters-section">
+            <div class="filter-group">
+                <h3>Popular Genres</h3>
+                <div class="genre-tags">
+                    <a href="#" class="genre-tag">Action</a>
+                    <a href="#" class="genre-tag">Adventure</a>
+                    <a href="#" class="genre-tag">Romance</a>
+                    <a href="#" class="genre-tag">Fantasy</a>
+                    <a href="#" class="genre-tag">Comedy</a>
+                </div>
+            </div>
+        </div>
+
+        <section class="manga-section">
+            <div class="section-header">
+                <h2><%= locals.searchQuery ? `Search Results for "${searchQuery}"` : 'Popular Manga' %></h2>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="manga-grid">
+                <% if (mangas && mangas.length > 0) { %>
+                    <% mangas.forEach(manga => { %>
+                        <div class="manga-card">
+                            <div class="manga-cover">
+                                <img src="<%= manga.cover %>" alt="<%= manga.title %>" loading="lazy">
+                                <div class="manga-overlay">
+                                    <span class="manga-status"><%= manga.status %></span>
+                                    <button class="bookmark-btn">
+                                        <i class="far fa-bookmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="manga-info">
+                                <h3 class="manga-title"><%= manga.title %></h3>
+                                <div class="manga-meta">
+                                    <span class="chapter-count">Latest: Ch. <%= manga.latestChapter || '?' %></span>
+                                    <span class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <%= manga.rating || '0.0' %>
+                                    </span>
+                                </div>
+                            </div>
+                            <a href="/manga/<%= manga.id %>" class="card-link"></a>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="no-results">
+                        <%= locals.searchQuery ? 
+                            `No results found for "${searchQuery}"` : 
+                            'No manga available at the moment.' %>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <span class="current-page">Page 1</span>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+    </div>
+</main>
+
+<%- include('layout/footer') %> 
